@@ -29,6 +29,17 @@ async function getAccessToken() {
   return accessToken;
 }
 
+async function getArtistById(id) {
+  const token = await getAccessToken();
+  const response = await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+}
+
+
 // Get Genres
 async function getGenres() {
   const token = await getAccessToken();
@@ -62,4 +73,5 @@ async function getArtistsByGenre(genre) {
 module.exports = {
   getGenres,
   getArtistsByGenre,
+  getArtistById,
 };

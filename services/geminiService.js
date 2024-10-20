@@ -3,18 +3,17 @@ const axios = require('axios');
 
 async function sendMessageToGemini(message, artistName, conversationId = null) {
   try {
-    // Construct the API request
     const requestBody = {
+      model: 'gemini-model-name', // Replace with the correct model name
       messages: [
         { role: 'system', content: `You are an expert on ${artistName}.` },
         { role: 'user', content: message },
       ],
-      // Include conversation ID if available for context
       ...(conversationId && { conversation_id: conversationId }),
     };
 
     const response = await axios.post(
-      'https://gemini-api.google.com/v1/chat/completions',
+      'https://gemini-api.google.com/v1/chat/completions', // Replace with the correct endpoint
       requestBody,
       {
         headers: {
@@ -24,14 +23,19 @@ async function sendMessageToGemini(message, artistName, conversationId = null) {
       }
     );
 
-    // Extract the reply and conversation ID from the response
     const reply = response.data.choices[0].message.content;
     const newConversationId = response.data.conversation_id;
 
     return { reply, conversationId: newConversationId };
   } catch (error) {
-    console.error('Error communicating with Gemini API:', error.response ? error.response.data : error.message);
-    throw error;
+    console.error('Error in sendMessageToGemini:', {
+      message: error.message,
+      responseData: error.response ? error.response.data : 'No response data',
+      status: error.response ? error.response.status : 'No status',
+      headers: error.response ? error.response.headers : 'No headers',
+      stack: error.stack,
+    });
+        throw error;
   }
 }
 

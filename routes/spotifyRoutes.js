@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getGenres, getArtistsByGenre } = require('../services/spotifyService');
+const { getGenres, getArtistsByGenre, getArtistById } = require('../services/spotifyService');
 
 // Get Genres
 router.get('/genres', async (req, res) => {
@@ -9,6 +9,16 @@ router.get('/genres', async (req, res) => {
     res.json(genres);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching genres' });
+  }
+});
+
+// Get Artist by ID
+router.get('/artist/:id', async (req, res) => {
+  try {
+    const artist = await getArtistById(req.params.id);
+    res.json(artist);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching artist' });
   }
 });
 

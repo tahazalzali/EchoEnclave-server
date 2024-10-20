@@ -14,13 +14,19 @@
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@google/generative-ai": "^0.21.0",
     "@mui/material": "^6.1.4",
     "axios": "^1.7.7",
+    "chai": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "mocha": "^10.7.3",
     "mongod": "^2.0.0",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.7.2",
+    "sinon": "^19.0.2",
+    "sinon-chai": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
